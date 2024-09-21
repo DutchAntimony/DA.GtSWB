@@ -1,0 +1,15 @@
+<Project>
+	<PropertyGroup>
+		<AssemblyName>DA.GtSWB.Tests.$(MSBuildProjectName)</AssemblyName>
+		<RootNamespace>DA.GtSWB.Tests.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+		<Authors>DutchAntimony</Authors>
+		<Copyright>DutchAntimony</Copyright>
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Using Include="DA.Results" />
+		<Using Include="DA.Results.Extensions" />
+		<Using Include="DA.Results.Issues" />
+	</ItemGroup>
+</Project>
