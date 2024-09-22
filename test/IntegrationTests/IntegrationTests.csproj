@@ -17,6 +17,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\lib\DA.Results\DA.Results.csproj" />
+    <ProjectReference Include="..\..\src\Application\Application.csproj" />
+    <ProjectReference Include="..\..\src\Common\Common.csproj" />
+    <ProjectReference Include="..\..\src\Domain\Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Using Include="Xunit" />
   </ItemGroup>
 

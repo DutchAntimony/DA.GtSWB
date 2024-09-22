@@ -1,14 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\lib\DA.Results\DA.Results.csproj" />
-    <ProjectReference Include="..\Common\Common.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="DutchAntimony.Option" Version="1.0.1" />
+	</ItemGroup>
 
+	<ItemGroup>
+		<ProjectReference Include="..\..\lib\DA.Results\DA.Results.csproj" />
+		<ProjectReference Include="..\Common\Common.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="DA.Options" />
+		<Using Include="DA.Options.Extensions" />
+		<Using Include="DA.GtSWB.Common.Extensions" />
+	</ItemGroup>
 </Project>
