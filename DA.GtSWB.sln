@@ -5,6 +5,7 @@ VisualStudioVersion = 17.10.34928.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{5F5DE4A1-3995-49D4-9D33-F8F45D6C8376}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		.gitignore = .gitignore
 		LICENSE = LICENSE
 		README.md = README.md
@@ -38,11 +39,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Infra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "src\Persistence\Persistence.csproj", "{6ABF4285-DFA9-4652-A3E5-548D32EB94C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ui.Cli", "src\Ui.Cli\Ui.Cli.csproj", "{46350684-00EC-46C9-AE6D-E540AAEF1E78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ui.Cli", "src\Ui.Cli\Ui.Cli.csproj", "{46350684-00EC-46C9-AE6D-E540AAEF1E78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "test\UnitTests\UnitTests.csproj", "{AFA55298-BC3D-46F6-A77C-5CB5B0136B61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "test\UnitTests\UnitTests.csproj", "{AFA55298-BC3D-46F6-A77C-5CB5B0136B61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "test\IntegrationTests\IntegrationTests.csproj", "{BAF0191B-560A-41E6-B28D-C3809809C5C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "test\IntegrationTests\IntegrationTests.csproj", "{BAF0191B-560A-41E6-B28D-C3809809C5C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

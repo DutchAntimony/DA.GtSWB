@@ -1,4 +1,5 @@
-﻿using DA.GtSWB.Infrastructure;
+﻿using DA.GtSWB.Application;
+using DA.GtSWB.Infrastructure;
 using DA.GtSWB.Persistence;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +24,7 @@ internal static class DependencyInjection
             .CreateDefaultBuilder()
             .ConfigureServices((context, services) =>
             {
+                services.RegisterApplication();
                 services.RegisterInfraServices();
                 services.RegisterDatabase(configuration);
             })

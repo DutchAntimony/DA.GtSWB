@@ -1,6 +1,4 @@
-﻿using DA.Results.Issues;
-
-namespace DA.GtSWB.Common.Errors;
+﻿namespace DA.GtSWB.Common.Errors;
 
 public abstract record NotFoundError : Error
 {

@@ -6,7 +6,8 @@ public static partial class ResultExtensions
     {
         foreach (var item in items)
         {
-            if (!result.IsSuccess) break;
+            if (!result.IsSuccess)
+                break;
             var itemResult = predicate(item);
             result = result.Check(itemResult);
         }
@@ -16,7 +17,8 @@ public static partial class ResultExtensions
     {
         foreach (var item in enumeration)
         {
-            if (!result.TryGetValue(out var value)) break; // if at any moment the result is Failure, don't do more checks.
+            if (!result.TryGetValue(out var value))
+                break; // if at any moment the result is Failure, don't do more checks.
             var itemResult = predicate(item, value);
             result = result.Check(itemResult);
         }
@@ -27,7 +29,8 @@ public static partial class ResultExtensions
     {
         foreach (var item in items)
         {
-            if (!result.IsSuccess) break; // if at any moment the result is Failure, don't do more checks.
+            if (!result.IsSuccess)
+                break; // if at any moment the result is Failure, don't do more checks.
             var itemResult = await predicateTask(item);
             result = result.Check(itemResult);
         }
@@ -46,7 +49,8 @@ public static partial class ResultExtensions
     {
         foreach (var item in enumeration)
         {
-            if (!result.TryGetValue(out var value)) break; // if at any moment the result is Failure, don't do more checks.
+            if (!result.TryGetValue(out var value))
+                break; // if at any moment the result is Failure, don't do more checks.
             var itemResult = await predicateTask(item, value);
             result = result.Check(itemResult);
         }
@@ -63,11 +67,13 @@ public static partial class ResultExtensions
     public static async Task<Result<IEnumerable<TValue>>> CheckForEachAsync<TValue>(this Task<Result<IEnumerable<TValue>>> resultTask, Func<TValue, Task<Result>> checkTask)
     {
         var result = await resultTask;
-        if (!result.TryGetValue(out var collection)) return result;
+        if (!result.TryGetValue(out var collection))
+            return result;
         foreach (var item in collection)
         {
             var innerResult = await checkTask(item);
-            if (!innerResult.IsSuccess) return result.Check(innerResult);
+            if (!innerResult.IsSuccess)
+                return result.Check(innerResult);
         }
         return result;
     }
@@ -75,11 +81,13 @@ public static partial class ResultExtensions
     public static async Task<Result<IEnumerable<TValue>>> CheckForEach<TValue>(this Task<Result<IEnumerable<TValue>>> resultTask, Func<TValue, Result> checkTask)
     {
         var result = await resultTask;
-        if (!result.TryGetValue(out var collection)) return result;
+        if (!result.TryGetValue(out var collection))
+            return result;
         foreach (var item in collection)
         {
             var innerResult = checkTask(item);
-            if (!innerResult.IsSuccess) return result.Check(innerResult);
+            if (!innerResult.IsSuccess)
+                return result.Check(innerResult);
         }
         return result;
     }

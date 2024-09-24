@@ -6,6 +6,7 @@ public static class LinqExtensions
         source.EnsureNotNull("Linq.Foreach can not be used on an null IEnumerable<T>");
         action.EnsureNotNull("Linq.Foreach can not be used with a null action.");
 
-        foreach (var item in source) { action(item); }
+        foreach (var item in source)
+        { action(item); }
     }
 }

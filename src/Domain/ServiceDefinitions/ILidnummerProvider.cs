@@ -2,5 +2,5 @@
 
 public interface ILidnummerProvider
 {
-    int GetNext();
+    Task<int> GetNextAsync(CancellationToken cancellationToken = default);
 }

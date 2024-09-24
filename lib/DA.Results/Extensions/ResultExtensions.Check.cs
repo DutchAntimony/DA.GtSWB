@@ -18,7 +18,8 @@ public static partial class ResultExtensions
 
     public static Result<T> Check<T>(this Result<T> result, Func<T, Result> checkFunc)
     {
-        if (!result.TryGetValue(out var value)) return result;
+        if (!result.TryGetValue(out var value))
+            return result;
         var check = checkFunc(value);
         return result.Check(check);
     }
@@ -26,14 +27,16 @@ public static partial class ResultExtensions
     public static async Task<Result<T>> CheckAsync<T, TResult>(this Result<T> result, Task<TResult> checkTask)
         where TResult : Result
     {
-        if (!result.IsSuccess) return result;
+        if (!result.IsSuccess)
+            return result;
         var check = await checkTask;
         return result.Check(check);
     }
 
     public static async Task<Result<T>> CheckAsync<T>(this Result<T> result, Func<T, Task<Result>> checkTaskFunc)
     {
-        if (!result.TryGetValue(out var value)) return result;
+        if (!result.TryGetValue(out var value))
+            return result;
         var check = await checkTaskFunc(value);
         return result.Check(check);
     }
@@ -66,7 +69,8 @@ public static partial class ResultExtensions
     public static async Task<Result<(T1, T2)>> Check<T1, T2>(this Task<Result<(T1, T2)>> resultTask, Func<T1, T2, Result> checkFunc)
     {
         var result = await resultTask;
-        if (!result.TryGetValue(out var value)) return result;
+        if (!result.TryGetValue(out var value))
+            return result;
         var check = checkFunc(value.Item1, value.Item2);
         return result.Check(check);
     }

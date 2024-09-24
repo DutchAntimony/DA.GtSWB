@@ -12,16 +12,15 @@ public record ValidationError(List<ValidationFailure> Failures) : Error
     public IEnumerable<string> GetFailuresOfProperty(string property) =>
         Failures.Where(f => f.Property == property).Select(f => f.Message);
 
-    public override string GetMessage() 
+    public override string GetMessage()
     {
-        StringBuilder stringBuilder = new ();
+        StringBuilder stringBuilder = new();
         stringBuilder.AppendLine("Validation failures: ");
         Failures.ForEach(f => stringBuilder.AppendLine(
             $"{f.Property} : {f.Message}"));
         return stringBuilder.ToString();
     }
 
-    public ValidationError(string property, string message) 
+    public ValidationError(string property, string message)
         : this([new ValidationFailure(property, message)]) { }
 }
-

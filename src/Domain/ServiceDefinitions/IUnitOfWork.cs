@@ -11,5 +11,5 @@ public interface IUnitOfWork : IDisposable
 
     IQueryable<Lid> AllLedenAggregate { get; }
 
-    Task CommitAsync();
+    Task CommitAsync(CancellationToken cancellationToken = default);
 }

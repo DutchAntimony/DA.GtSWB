@@ -17,7 +17,8 @@ public class LedenAdministratieDbContext(DbContextOptions<LedenAdministratieDbCo
         .Include(lid => lid.Personalia)
         .AsSplitQuery());
 
-    public async Task CommitAsync() => await SaveChangesAsync();
+    public async Task CommitAsync(CancellationToken cancellationToken = default) =>
+        await SaveChangesAsync(cancellationToken);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

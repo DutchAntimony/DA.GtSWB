@@ -7,18 +7,22 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FluentValidation" Version="11.10.0" />
+		<PackageReference Include="MediatR" Version="12.4.1" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\lib\DA.Results\DA.Results.csproj" />
 		<ProjectReference Include="..\Common\Common.csproj" />
 		<ProjectReference Include="..\Domain\Domain.csproj" />
+		<ProjectReference Include="..\Persistence\Persistence.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Using Include="DA.Options" />
 		<Using Include="DA.Options.Extensions" />
 		<Using Include="DA.GtSWB.Common.Extensions" />
+		<Using Include="DA.Results" />
+		<Using Include="DA.Results.Extensions" />
 	</ItemGroup>
 </Project>

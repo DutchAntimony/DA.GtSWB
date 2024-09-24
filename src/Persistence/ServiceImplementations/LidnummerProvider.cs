@@ -1,13 +1,17 @@
-﻿using DA.GtSWB.Domain.Models.Ledenadministratie;
-using DA.GtSWB.Domain.ServiceDefinitions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DA.GtSWB.Domain.ServiceDefinitions;
+using DA.GtSWB.Persistence.Extensions;
 
 namespace DA.GtSWB.Persistence.ServiceImplementations;
 internal class LidnummerProvider(IUnitOfWork unitOfWork) : ILidnummerProvider
 {
-    public int GetNext() => unitOfWork.AllLedenAggregate.MaxBy(lid => lid.Lidnummer)?.Lidnummer + 1 ?? 1;
+    private int _next = -1;
+
+    public async Task<int> GetNextAsync(CancellationToken cancellationToken = default)
+    {
+        if (_next == -1)
+        {
+            _next = await unitOfWork.AllLedenAggregate.MaxOrDefaultAsync(lid => lid.Lidnummer, 1, cancellationToken);
+        }
+        return _next++;
+    }
 }

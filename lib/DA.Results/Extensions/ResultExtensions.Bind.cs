@@ -5,14 +5,16 @@ public static partial class ResultExtensions
     #region Bind Result to Result
     public static Result Bind(this Result first, Func<Result> secondFunc)
     {
-        if (!first.IsSuccess) return first;
+        if (!first.IsSuccess)
+            return first;
         var second = secondFunc();
         return first.Bind(second);
     }
 
     public static async Task<Result> BindAsync(this Result first, Task<Result> secondTask)
     {
-        if (!first.IsSuccess) return first;
+        if (!first.IsSuccess)
+            return first;
         var second = await secondTask;
         return first.Bind(second);
     }
@@ -39,14 +41,16 @@ public static partial class ResultExtensions
     #region Bind Result to Result{T}
     public static Result<T> Bind<T>(this Result first, Func<Result<T>> secondFunc)
     {
-        if (!first.IsSuccess) return new(first.Issue);
+        if (!first.IsSuccess)
+            return new(first.Issue);
         var second = secondFunc();
         return first.Bind(second);
     }
 
     public static async Task<Result<T>> BindAsync<T>(this Result first, Task<Result<T>> secondTask)
     {
-        if (!first.IsSuccess) return new(first.Issue);
+        if (!first.IsSuccess)
+            return new(first.Issue);
         var second = await secondTask;
         return first.Bind(second);
     }
@@ -83,21 +87,24 @@ public static partial class ResultExtensions
     #region Bind Result{TIn} to Result{TOut}
     public static Result<TOut> Bind<TIn, TOut>(this Result<TIn> first, Func<TIn, Result<TOut>> secondFunc)
     {
-        if (!first.TryGetValue(out var value)) return new(first.Issue);
+        if (!first.TryGetValue(out var value))
+            return new(first.Issue);
         var second = secondFunc(value);
         return first.Bind(second);
     }
 
     public static async Task<Result<TOut>> BindAsync<TIn, TOut>(this Result<TIn> first, Task<Result<TOut>> secondTask)
     {
-        if (!first.IsSuccess) return new(first.Issue);
+        if (!first.IsSuccess)
+            return new(first.Issue);
         var second = await secondTask;
         return first.Bind(second);
     }
 
     public static async Task<Result<TOut>> BindAsync<TIn, TOut>(this Result<TIn> first, Func<TIn, Task<Result<TOut>>> secondTaskFunc)
     {
-        if (!first.TryGetValue(out var value)) return new(first.Issue);
+        if (!first.TryGetValue(out var value))
+            return new(first.Issue);
         var second = await secondTaskFunc(value);
         return first.Bind(second);
     }

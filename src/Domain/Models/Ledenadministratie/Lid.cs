@@ -20,20 +20,21 @@ public class Lid
 
     private Lid() { }
 
-    public static Lid Create(
+    public static async Task<Lid> Create(
         ILidnummerProvider lidnummerProvider,
         Personalia personalia,
-        Option<Adres> adres
+        Adres adres,
         //Option<BetaalwijzeData> betaalwijze,
         //DateTime referentiedatum
+        CancellationToken cancellationToken = default
         )
     {
         return new Lid
         {
             Id = LidId.Create(),
-            Lidnummer = lidnummerProvider.GetNext(),
+            Lidnummer = await lidnummerProvider.GetNextAsync(cancellationToken),
             Personalia = personalia,
-            AdresDataDatabase = adres.ToNullIf(a => a.Id.IsEmpty()),
+            AdresDataDatabase = adres,
             //BetaalwijzeData = betaalwijze.ToNullIf(b => b.Id.IsEmpty())
         };
     }

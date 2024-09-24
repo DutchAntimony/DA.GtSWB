@@ -11,7 +11,8 @@ public static partial class ResultExtensions
     /// </summary>
     public static Result<(T1, T2)> Combine<T1, T2>(this Result<T1> first, Func<T1, Result<T2>> secondFunc)
     {
-        if (!first.TryGetValue(out var value)) return new(first.Issue);
+        if (!first.TryGetValue(out var value))
+            return new(first.Issue);
         var second = secondFunc(value);
         return first.Combine(second);
     }
@@ -21,7 +22,8 @@ public static partial class ResultExtensions
     /// </summary>
     public static async Task<Result<(T1, T2)>> CombineAsync<T1, T2>(this Result<T1> first, Task<Result<T2>> secondTask)
     {
-        if (!first.IsSuccess) return new(first.Issue);
+        if (!first.IsSuccess)
+            return new(first.Issue);
         var second = await secondTask;
         return first.Combine(second);
     }
@@ -31,7 +33,8 @@ public static partial class ResultExtensions
     /// </summary>
     public static async Task<Result<(T1, T2)>> CombineAsync<T1, T2>(this Result<T1> first, Func<T1, Task<Result<T2>>> secondTaskFunc)
     {
-        if (!first.TryGetValue(out var value)) return new(first.Issue);
+        if (!first.TryGetValue(out var value))
+            return new(first.Issue);
         var second = await secondTaskFunc(value);
         return first.Combine(second);
     }

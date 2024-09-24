@@ -1,7 +1,7 @@
-﻿using System.Text;
-using System.Xml;
-using DA.Sepa.DataTypes;
+﻿using DA.Sepa.DataTypes;
 using DA.Sepa.Extensions;
+using System.Text;
+using System.Xml;
 
 namespace DA.Sepa.Services;
 

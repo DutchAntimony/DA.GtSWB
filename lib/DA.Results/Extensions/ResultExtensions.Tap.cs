@@ -10,14 +10,16 @@ public static partial class ResultExtensions
     public static TResult Tap<TResult>(this TResult result, Action action)
         where TResult : Result
     {
-        if (result.IsSuccess) action();
+        if (result.IsSuccess)
+            action();
         return result;
     }
 
     public static async Task<TResult> TapAsync<TResult>(this TResult result, Task task)
         where TResult : Result
     {
-        if (result.IsSuccess) await task;
+        if (result.IsSuccess)
+            await task;
         return result;
     }
 
@@ -40,13 +42,15 @@ public static partial class ResultExtensions
     #region Result{T} to action(T)
     public static Result<TValue> Tap<TValue>(this Result<TValue> result, Action<TValue> action)
     {
-        if (result.TryGetValue(out var value)) action(value);
+        if (result.TryGetValue(out var value))
+            action(value);
         return result;
     }
 
     public static async Task<Result<TValue>> TapAsync<TValue>(this Result<TValue> result, Func<TValue, Task> actionTask)
     {
-        if (result.TryGetValue(out var value)) await actionTask(value);
+        if (result.TryGetValue(out var value))
+            await actionTask(value);
         return result;
     }
 

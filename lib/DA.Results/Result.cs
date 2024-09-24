@@ -32,7 +32,8 @@ public class Result : IResult
     /// <returns>A Result with the new status.</returns>
     public Result Bind(Result other)
     {
-        if (HasIssue) return this;
+        if (HasIssue)
+            return this;
         return other.Issue.Match(
             successValue: this,
             warningValue: _ignoreWarnings ? this : other,
@@ -49,7 +50,8 @@ public class Result : IResult
     /// <returns>A Result of <typeparamref name="TValue"/> with the new status.</returns>
     public Result<TValue> Bind<TValue>(Result<TValue> other)
     {
-        if (HasIssue) return new(Issue);
+        if (HasIssue)
+            return new(Issue);
         return other.Issue.Match(
             successValue: new(other._value!),
             warningValue: _ignoreWarnings ? new(other._value!) : other,
