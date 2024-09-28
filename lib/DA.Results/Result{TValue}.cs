@@ -13,7 +13,7 @@ public sealed class Result<TValue> : Result
 
     internal Result(TValue value, Warning warning) : base(warning) => _value = value;
 
-    internal bool TryGetValue([NotNullWhen(true), MaybeNullWhen(false)] out TValue value)
+    public bool TryGetValue([NotNullWhen(true), MaybeNullWhen(false)] out TValue value)
     {
         value = _value is not null ? _value : default;
         return IsSuccess;

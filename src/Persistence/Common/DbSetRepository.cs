@@ -16,6 +16,9 @@ public class DbSetRepository<TEntity> : IRepository<TEntity>
 
     public void Add(TEntity entity) => _dbSet.Add(entity);
 
+    public void AddRange(IEnumerable<TEntity> entities) => 
+        _dbSet.AddRange(entities);
+
     public void Remove(TEntity entity) => _dbSet.Remove(entity);
 
     public async Task<List<TEntity>> QueryAsync(ISpecification<TEntity> specification, CancellationToken cancellationToken = default) =>

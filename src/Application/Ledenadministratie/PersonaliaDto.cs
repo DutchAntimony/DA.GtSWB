@@ -1,5 +1,4 @@
-﻿using DA.GtSWB.Application.Extensions;
-using DA.GtSWB.Common.Data.Enums;
+﻿using DA.GtSWB.Common.Types.Enums;
 using DA.GtSWB.Domain.Models.Ledenadministratie;
 using System.Text.RegularExpressions;
 

@@ -1,4 +1,4 @@
-﻿using DA.GtSWB.Common.Data.IDs;
+﻿using DA.GtSWB.Common.Types.IDs;
 
 namespace DA.GtSWB.Common.Extensions;
 

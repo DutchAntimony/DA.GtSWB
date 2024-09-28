@@ -13,12 +13,31 @@ public sealed class UnitOfWorkPipelineBehaviour<TRequest, TResponse>(IUnitOfWork
         RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-        var response = await next();
-        if (response.IsSuccess && request is not IQuery<IResult> or ICollectionQuery<IResult>)
+        if (request is IQuery<IResult> or ICollectionQuery<IResult>)
         {
-            await unitOfWork.CommitAsync(cancellationToken);
+            return await next();
         }
 
-        return response;
+        using var transaction = unitOfWork.BeginTransaction();
+        try
+        {
+            var response = await next();
+            if (response.IsSuccess)
+            {
+                await unitOfWork.CommitAsync(cancellationToken);
+                transaction.Commit();
+            }
+            else
+            {
+                transaction.Rollback();
+            }
+
+            return response;
+        }
+        catch
+        {
+            transaction.Rollback();
+            throw;
+        }
     }
 }

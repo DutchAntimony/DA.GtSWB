@@ -1,4 +1,4 @@
-﻿using DA.GtSWB.Common.Data.IDs;
+﻿using DA.GtSWB.Common.Types.IDs;
 using DA.GtSWB.Domain.Models.Ledenadministratie;
 using DA.GtSWB.Persistence.Converters;
 using Microsoft.EntityFrameworkCore;
@@ -32,21 +32,12 @@ public class LidConfiguratie : IEntityTypeConfiguration<Lid>
             .OnDelete(DeleteBehavior.SetNull);
         builder.Property(nameof(AdresId)).HasColumnOrder(3);
 
-        //ConfigureBetaalwijzeRelation(builder, columnNumber: 4);
+        builder.HasOne(l => l.BetaalwijzeDataDatabase)
+            .WithMany(bw => bw.Leden)
+            .HasForeignKey(nameof(BetaalwijzeId))
+            .OnDelete(DeleteBehavior.SetNull);
+        builder.Property(nameof(BetaalwijzeId)).HasColumnOrder(4);
 
-        //builder.Property(l => l.IsUitgeschreven).HasColumnOrder(5);
+        builder.Property(l => l.IsUitgeschreven).HasColumnOrder(5);
     }
-
-    //private static void ConfigureBetaalwijzeRelation(EntityTypeBuilder<Lid> builder, int columnNumber)
-    //{
-    //    builder.HasOne(l => l.BetaalwijzeData)
-    //        .WithMany(bw => bw.Leden)
-    //        .HasForeignKey("BetaalwijzeId")
-    //        .OnDelete(DeleteBehavior.SetNull);
-
-    //    //builder.Navigation(nameof(Lid.BetaalwijzeData))
-    //    //    .UsePropertyAccessMode(PropertyAccessMode.Field);
-
-    //    builder.Property(nameof(BetaalwijzeId)).HasColumnOrder(columnNumber);
-    //}
 }

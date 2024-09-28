@@ -1,4 +1,4 @@
-﻿namespace DA.GtSWB.Common.Data.Enums;
+﻿namespace DA.GtSWB.Common.Types.Enums;
 
 public enum Geslacht
 {

@@ -1,4 +1,6 @@
 ﻿using DA.ApplicationLibrary.Behaviours;
+using DA.GtSWB.Application.Ledenadministratie.Personen;
+using DA.GtSWB.Application.Ledenadministratie.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -15,6 +17,8 @@ public static class DependencyInjection
             //config.AddOpenBehavior(typeof(ValidationPipelineBehaviour<,>));
         });
 
+        services.AddTransient<IBicProvider, BicProvider>();
+        services.AddTransient<ILidCreationService, LidCreationService>();
         return services;
     }
 }

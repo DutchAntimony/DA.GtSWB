@@ -1,4 +1,4 @@
-﻿using DA.GtSWB.Common.Data.IDs;
+﻿using DA.GtSWB.Common.Types.IDs;
 using MediatR;
 
 namespace DA.GtSWB.Application.Common.Commands;

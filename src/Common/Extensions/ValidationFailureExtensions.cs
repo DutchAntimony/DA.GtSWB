@@ -1,10 +1,11 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace DA.GtSWB.Application.Extensions;
-internal static class ValidationFailureExtensions
+namespace DA.GtSWB.Common.Extensions;
+public static class ValidationFailureExtensions
 {
-    public static Result VerifyNotNull(this object? value, [CallerMemberName] string propertyname = "") =>
-        InvalidIf(value is null, $"{propertyname} is een verplicht veld.", propertyname);
+    public static Result<T> VerifyNotNull<T>(this T? value, [CallerMemberName] string propertyname = "") =>
+        InvalidIf(value is null, $"{propertyname} is een verplicht veld.", propertyname)
+        .Map(value!);
 
     public static Result VerifyNotEmpty(this string? value, [CallerMemberName] string propertyname = "") =>
         InvalidIf(string.IsNullOrWhiteSpace(value), $"{propertyname} is een verplicht veld.", propertyname);

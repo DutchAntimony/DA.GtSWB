@@ -1,5 +1,5 @@
-﻿using DA.GtSWB.Common.Data.Enums;
-using DA.GtSWB.Common.Data.IDs;
+﻿using DA.GtSWB.Common.Types.Enums;
+using DA.GtSWB.Common.Types.IDs;
 
 namespace DA.GtSWB.Domain.Models.Ledenadministratie;
 

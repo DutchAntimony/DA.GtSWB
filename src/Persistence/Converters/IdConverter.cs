@@ -1,4 +1,4 @@
-﻿using DA.GtSWB.Common.Data.IDs;
+﻿using DA.GtSWB.Common.Types.IDs;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DA.GtSWB.Persistence.Converters;

@@ -1,4 +1,4 @@
-﻿using DA.GtSWB.Common.Data.IDs;
+﻿using DA.GtSWB.Common.Types.IDs;
 using DA.GtSWB.Domain.Models.Ledenadministratie;
 using DA.GtSWB.Persistence.Converters;
 using Microsoft.EntityFrameworkCore;

@@ -1,4 +1,4 @@
-﻿namespace DA.GtSWB.Common.Data.IDs;
+﻿namespace DA.GtSWB.Common.Types.IDs;
 
 public record struct PersonaliaId(Ulid Value) : IId
 {

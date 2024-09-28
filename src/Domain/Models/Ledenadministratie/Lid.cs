@@ -1,4 +1,4 @@
-﻿using DA.GtSWB.Common.Data.IDs;
+﻿using DA.GtSWB.Common.Types.IDs;
 using DA.GtSWB.Domain.Extensions;
 using DA.GtSWB.Domain.ServiceDefinitions;
 
@@ -10,24 +10,21 @@ public class Lid
     public int Lidnummer { get; init; }
     public Personalia Personalia { get; private set; } = null!;
 
-    public Adres? AdresDataDatabase { get; set; } = null;
-    public Adres Adres => AdresDataDatabase ?? Adres.Empty;
+    public Adres? AdresDataDatabase { get; private set; } = null;
+    public Option<Adres> Adres => AdresDataDatabase.AsOption();
 
-    //internal BetaalwijzeData? BetaalwijzeData { get; private set; } = null;
-    //public BetaalwijzeData Betaalwijze => BetaalwijzeData ?? Betaalwijzes.Betaalwijze.Gratis;
+    public BetaalwijzeId? BetaalwijzeId { get; set; } = null;
 
-    //public bool IsUitgeschreven { get; private set; } = false;
+    public Betaalwijze? BetaalwijzeDataDatabase { get; private set; } = null;
+
+    public Option<Betaalwijze> Betaalwijze => BetaalwijzeDataDatabase.AsOption();
+
+    public bool IsUitgeschreven { get; private set; } = false;
 
     private Lid() { }
 
-    public static async Task<Lid> Create(
-        ILidnummerProvider lidnummerProvider,
-        Personalia personalia,
-        Adres adres,
-        //Option<BetaalwijzeData> betaalwijze,
-        //DateTime referentiedatum
-        CancellationToken cancellationToken = default
-        )
+    public static async Task<Lid> Create(ILidnummerProvider lidnummerProvider,
+        Personalia personalia, Adres adres, CancellationToken cancellationToken = default)
     {
         return new Lid
         {
@@ -35,16 +32,22 @@ public class Lid
             Lidnummer = await lidnummerProvider.GetNextAsync(cancellationToken),
             Personalia = personalia,
             AdresDataDatabase = adres,
-            //BetaalwijzeData = betaalwijze.ToNullIf(b => b.Id.IsEmpty())
+            BetaalwijzeDataDatabase = null
         };
     }
 
-    //public static void ApplyNaamWijzigingMutatie(NaamWijzigingMutatie mutatie)
-    //{
-    //    mutatie.Lid.UpdatePersonalia(mutatie.NieuwPersonalia);
-    //}
+    public void AssignBetaalwijze(Betaalwijze betaalwijze, bool isResponsable = false)
+    {
+        BetaalwijzeDataDatabase = betaalwijze;
 
-    private void UpdatePersonalia(Personalia newPersoonData)
+        // If this member is responsible for the payment method, set it
+        if (isResponsable)
+        {
+            betaalwijze.VerantwoordelijkLid = this;
+        }
+    }
+
+    public void UpdatePersonalia(Personalia newPersoonData)
     {
         if (newPersoonData.Id.IsEmpty())
         {
@@ -59,16 +62,7 @@ public class Lid
         Personalia = newPersoonData;
     }
 
-    //public static void ApplyVerhuisMutatie(VerhuisMutatie mutatie)
-    //{
-    //    mutatie.Lid.Verhuis(mutatie.NieuwAdres.AsOption());
-    //    if (mutatie.NieuweBetaalwijze is not null)
-    //    {
-    //        mutatie.Lid.BetaalwijzeData = mutatie.NieuweBetaalwijze;
-    //    }
-    //}
-
-    private void Verhuis(Option<Adres> newAdres)
+    public void Verhuis(Option<Adres> newAdres)
     {
         var adres = newAdres.ToNullIf(a => a.Id.IsEmpty());
 
@@ -80,22 +74,8 @@ public class Lid
         AdresDataDatabase = adres;
     }
 
-    //public static void ApplyBetaalwijzeMutatie(BetaalwijzeMutatie mutatie)
-    //{
-    //    mutatie.Lid.UpdateBetaalwijze(mutatie.NieuweBetaalwijze);
-    //}
-
-    //private void UpdateBetaalwijze(BetaalwijzeData? betaalwijze)
-    //{
-    //    BetaalwijzeData = betaalwijze;
-    //}
-
-    //public static void ApplyUitschrijfMutatie(UitschrijfMutatie mutatie)
-    //{
-    //    mutatie.Lid.SchrijfUit();
-    //}
-    //private void SchrijfUit()
-    //{
-    //    IsUitgeschreven = true;
-    //}
+    private void SchrijfUit()
+    {
+        IsUitgeschreven = true;
+    }
 }

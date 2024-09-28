@@ -1,5 +1,4 @@
-﻿using DA.GtSWB.Application.Extensions;
-using DA.GtSWB.Domain.Models.Ledenadministratie;
+﻿using DA.GtSWB.Domain.Models.Ledenadministratie;
 using System.Text.RegularExpressions;
 
 namespace DA.GtSWB.Application.Ledenadministratie.Adressen;
@@ -7,8 +6,8 @@ namespace DA.GtSWB.Application.Ledenadministratie.Adressen;
 public partial record AdresDto
 {
     private string? _straat;
-    public string? Straat 
-    { 
+    public string? Straat
+    {
         get => _straat;
         set => _straat = value?.Sanitize();
     }
@@ -35,8 +34,8 @@ public partial record AdresDto
     }
 
     private string _landcode = string.Empty;
-    public string? Land 
-    { 
+    public string? Land
+    {
         get => _landcode;
         set => SetLandcode(value);
     }
@@ -58,7 +57,7 @@ public partial record AdresDto
             .AddFrom(Postcode.VerifyNotNull(nameof(Postcode)).Bind(() => ValidatePostcode(nameof(Postcode))))
             .ToResult();
     }
-    
+
     private Result ValidatePostcode(string propertyName)
     {
         return Land switch

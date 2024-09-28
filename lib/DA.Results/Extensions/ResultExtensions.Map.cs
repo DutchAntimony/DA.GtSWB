@@ -15,6 +15,13 @@ public static partial class ResultExtensions
         return result.Map(func());
     }
 
+    public static Result<T> MapFunc<T>(this Result result, Func<T> func)
+    {
+        if (!result.IsSuccess)
+            return new(result.Issue);
+        return result.Map(func());
+    }
+
     public static async Task<Result<T>> MapAsync<T>(this Result result, Task<T> task)
     {
         if (!result.IsSuccess)
@@ -31,7 +38,7 @@ public static partial class ResultExtensions
     public static async Task<Result<TOut>> Map<TOut>(this Task<Result> resultTask, Func<TOut> func)
     {
         var result = await resultTask;
-        return Map(result, func);
+        return MapFunc(result, func);
     }
 
     public static async Task<Result<TOut>> MapAsync<TOut>(this Task<Result> resultTask, Task<TOut> task)

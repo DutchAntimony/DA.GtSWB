@@ -1,6 +1,4 @@
-﻿using DA.GtSWB.Application.Extensions;
-
-namespace DA.GtSWB.Application.Common;
+﻿namespace DA.GtSWB.Application.Common;
 
 public record RequestMetadata
 {
