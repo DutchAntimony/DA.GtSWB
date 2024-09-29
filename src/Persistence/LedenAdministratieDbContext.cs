@@ -2,7 +2,6 @@
 using DA.GtSWB.Domain.Models.Ledenadministratie;
 using DA.GtSWB.Domain.ServiceDefinitions;
 using DA.GtSWB.Persistence.Common;
-using DA.GtSWB.Persistence.Configuration.Tests;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 

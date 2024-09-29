@@ -2,7 +2,7 @@
 using DA.GtSWB.Domain.ServiceDefinitions;
 using MediatR;
 
-namespace DA.ApplicationLibrary.Behaviours;
+namespace DA.GtSWB.Application.Behaviour;
 public sealed class UnitOfWorkPipelineBehaviour<TRequest, TResponse>(IUnitOfWork unitOfWork)
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull

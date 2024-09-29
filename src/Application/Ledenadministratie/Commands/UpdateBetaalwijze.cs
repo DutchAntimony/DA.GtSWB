@@ -1,6 +1,7 @@
 ﻿using DA.GtSWB.Application.Common;
 using DA.GtSWB.Application.Common.Commands;
 using DA.GtSWB.Common.Data;
+using DA.GtSWB.Common.Types;
 using DA.GtSWB.Common.Types.IDs;
 using DA.GtSWB.Domain.Models.Ledenadministratie;
 using DA.GtSWB.Domain.ServiceDefinitions;
@@ -22,7 +23,7 @@ public static class UpdateBetaalwijze
                 unitOfWork.Leden.SingleOrFailureAsync(alleLeden.ById(request.LidId), cancellationToken)
                 .CombineAsync(_ => unitOfWork.Betaalwijzes.SingleOrFailureAsync(alleBetaalwijzes.ById(request.BetaalwijzeId), cancellationToken))
                 .Check(request.Metadata.Validate())
-                .Tap((lid, betaalwijze) => lid.AssignBetaalwijze(betaalwijze));
+                .Tap((lid, betaalwijze) => lid.AssignBetaalwijze(betaalwijze, request.Metadata.Timestamp, request.Metadata.Gebruiker));
         }
     }
 }

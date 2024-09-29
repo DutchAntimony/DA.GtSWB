@@ -2,6 +2,7 @@
 using DA.GtSWB.Application.Common.Commands;
 using DA.GtSWB.Application.Ledenadministratie.Adressen;
 using DA.GtSWB.Common.Data;
+using DA.GtSWB.Common.Types;
 using DA.GtSWB.Common.Types.IDs;
 using DA.GtSWB.Domain.Models.Ledenadministratie;
 using DA.GtSWB.Domain.ServiceDefinitions;
@@ -23,15 +24,15 @@ public static class Verhuis
             return await request.Metadata.Validate()
                 .Bind(request.Adres.ToDomainModel())
                 .CheckForEachAsync(request.Personen, (lidId, adres) => 
-                    VerhuisLid(lidId, adres, cancellationToken))
+                    VerhuisLid(lidId, adres, request.Metadata, cancellationToken))
                 .Map(adres => adres.Id);
         }
 
-        private async Task<Result> VerhuisLid(LidId lidId, Adres adres, CancellationToken cancellationToken)
+        private async Task<Result> VerhuisLid(LidId lidId, Adres adres, RequestMetadata metadata, CancellationToken cancellationToken)
         {
             return await
                 unitOfWork.Leden.SingleOrFailureAsync(alleLeden.ById(lidId), cancellationToken)
-                .Tap(lid => lid.Verhuis(adres.AsOption()));
+                .Tap(lid => lid.Verhuis(adres.AsOption(), metadata.Timestamp, metadata.Gebruiker));
         }
     }
 }

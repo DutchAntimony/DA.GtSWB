@@ -3,7 +3,7 @@
 public record RequestMetadata
 {
     public DateTime Timestamp { get; }
-    public string? Gebruiker { get; }
+    public string Gebruiker { get; }
 
     public RequestMetadata(DateTime timestamp, string gebruiker) =>
         (Timestamp, Gebruiker) = (timestamp, gebruiker.Sanitize());

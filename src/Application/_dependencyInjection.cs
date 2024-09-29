@@ -1,5 +1,5 @@
-﻿using DA.ApplicationLibrary.Behaviours;
-using DA.GtSWB.Application.Ledenadministratie.Personen;
+﻿using DA.GtSWB.Application.Behaviour;
+using DA.GtSWB.Application.Ledenadministratie;
 using DA.GtSWB.Application.Ledenadministratie.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
@@ -19,6 +19,7 @@ public static class DependencyInjection
 
         services.AddTransient<IBicProvider, BicProvider>();
         services.AddTransient<ILidCreationService, LidCreationService>();
+        services.AddTransient<IBetaalwijzeCreationService, BetaalwijzeCreationService>();
         return services;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using DA.GtSWB.Application.Common;
+using DA.GtSWB.Application.Ledenadministratie;
 using DA.GtSWB.Application.Ledenadministratie.Adressen;
 using DA.GtSWB.Application.Ledenadministratie.Commands;
 using DA.GtSWB.Application.Ledenadministratie.Personen;

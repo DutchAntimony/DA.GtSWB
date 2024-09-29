@@ -21,8 +21,4 @@
 		<Using Include="DA.Options.Extensions" />
 		<Using Include="DA.GtSWB.Common.Extensions" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Models\Ledenadministratie\Mutatie\" />
-	</ItemGroup>
 </Project>

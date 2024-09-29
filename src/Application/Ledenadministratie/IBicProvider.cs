@@ -1,6 +1,6 @@
 ﻿using DA.GtSWB.Common.Types;
 
-namespace DA.GtSWB.Application.Ledenadministratie.Personen;
+namespace DA.GtSWB.Application.Ledenadministratie;
 
 public interface IBicProvider
 {

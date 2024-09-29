@@ -1,9 +1,11 @@
 ﻿using DA.GtSWB.Application.Common;
 using DA.GtSWB.Application.Ledenadministratie.Personen;
 using DA.GtSWB.Common.Data;
+using DA.GtSWB.Common.Types;
 using DA.GtSWB.Domain.Extensions;
 using DA.GtSWB.Domain.Models.Ledenadministratie;
 using DA.GtSWB.Domain.Models.Ledenadministratie.Betaalwijzes;
+using DA.GtSWB.Domain.Models.Ledenadministratie.Mutaties;
 using DA.GtSWB.Domain.ServiceDefinitions;
 using DA.GtSWB.Domain.Specifications;
 
@@ -25,6 +27,7 @@ internal class LidCreationService(
     {
         return await dto.ToDomainModel(metadata.Timestamp)
             .MapAsync(personalia => Lid.Create(lidnummerProvider, personalia, adres, cancellationToken))
+            .Tap(lid => lid.Mutaties.Add(NieuwLidMutatie.Create(lid, metadata.Timestamp, metadata.Gebruiker)))
             .Tap(unitOfWork.Leden.Add);
     }
 
@@ -41,7 +44,7 @@ internal class LidCreationService(
         RequestMetadata metadata, CancellationToken cancellationToken = default)
     {
         return await CreateGratis(dto, adres, metadata, cancellationToken)
-            .Tap(lid => lid.AssignBetaalwijze(betaalwijze, false));
+            .Tap(lid => lid.AssignBetaalwijze(betaalwijze, metadata.Timestamp, metadata.Gebruiker, false));
     }
 
     private async Task<Result<Lid>> CreateNieuweBetaalwijze(PersonaliaDto dto, Adres adres, Betaalwijze betaalwijze,
@@ -49,7 +52,7 @@ internal class LidCreationService(
     {
         return await CreateGratis(dto, adres, metadata, cancellationToken)
             .TapAsync(unitOfWork.CommitAsync(cancellationToken))
-            .Tap(lid => lid.AssignBetaalwijze(betaalwijze, true));
+            .Tap(lid => lid.AssignBetaalwijze(betaalwijze, metadata.Timestamp, metadata.Gebruiker, true));
     }
 }
 

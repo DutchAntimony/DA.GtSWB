@@ -1,7 +1,7 @@
 ﻿using DA.GtSWB.Common.Types;
 using DA.GtSWB.Domain.Models.Ledenadministratie;
 
-namespace DA.GtSWB.Application.Ledenadministratie.Personen;
+namespace DA.GtSWB.Application.Ledenadministratie;
 
 public record BankrekeningDto
 {

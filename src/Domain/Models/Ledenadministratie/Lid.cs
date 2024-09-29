@@ -1,5 +1,6 @@
 ﻿using DA.GtSWB.Common.Types.IDs;
 using DA.GtSWB.Domain.Extensions;
+using DA.GtSWB.Domain.Models.Ledenadministratie.Mutaties;
 using DA.GtSWB.Domain.ServiceDefinitions;
 
 namespace DA.GtSWB.Domain.Models.Ledenadministratie;
@@ -21,6 +22,8 @@ public class Lid
 
     public bool IsUitgeschreven { get; private set; } = false;
 
+    public ICollection<LidMutatie> Mutaties { get; private set; } = [];
+
     private Lid() { }
 
     public static async Task<Lid> Create(ILidnummerProvider lidnummerProvider,
@@ -36,18 +39,19 @@ public class Lid
         };
     }
 
-    public void AssignBetaalwijze(Betaalwijze betaalwijze, bool isResponsable = false)
+    public void AssignBetaalwijze(Betaalwijze betaalwijze, DateTime mutatieTimeStamp, string gebruiker, bool isResponsable = false)
     {
+        Mutaties.Add(BetaalwijzeMutatie.Create(this, betaalwijze.AsOption(), mutatieTimeStamp, gebruiker));
         BetaalwijzeDataDatabase = betaalwijze;
 
-        // If this member is responsible for the payment method, set it
+        // If this member is responsible for the payment method, set it 
         if (isResponsable)
         {
             betaalwijze.VerantwoordelijkLid = this;
         }
     }
 
-    public void UpdatePersonalia(Personalia newPersoonData)
+    public void UpdatePersonalia(Personalia newPersoonData, DateTime mutatieTimeStamp, string gebruiker)
     {
         if (newPersoonData.Id.IsEmpty())
         {
@@ -60,9 +64,11 @@ public class Lid
         }
 
         Personalia = newPersoonData;
+
+        Mutaties.Add(NaamWijzigingMutatie.Create(this, newPersoonData, mutatieTimeStamp, gebruiker));
     }
 
-    public void Verhuis(Option<Adres> newAdres)
+    public void Verhuis(Option<Adres> newAdres, DateTime mutatieTimeStamp, string gebruiker)
     {
         var adres = newAdres.ToNullIf(a => a.Id.IsEmpty());
 
@@ -72,6 +78,8 @@ public class Lid
         }
 
         AdresDataDatabase = adres;
+
+        Mutaties.Add(VerhuisMutatie.Create(this, newAdres, mutatieTimeStamp, gebruiker));
     }
 
     private void SchrijfUit()

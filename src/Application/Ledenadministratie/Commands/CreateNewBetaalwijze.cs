@@ -1,6 +1,5 @@
 ﻿using DA.GtSWB.Application.Common;
 using DA.GtSWB.Application.Common.Commands;
-using DA.GtSWB.Application.Ledenadministratie.Personen;
 using DA.GtSWB.Application.Ledenadministratie.Services;
 using DA.GtSWB.Common.Data;
 using DA.GtSWB.Common.Types.IDs;
@@ -24,7 +23,7 @@ public static class CreateNewBetaalwijze
                 unitOfWork.Leden.SingleOrFailureAsync(alleLeden.ById(request.LidId), cancellationToken)
                 .Combine(_ => betaalwijzeCreationService.CreateBetaalwijze(request.BankrekeningDto))
                 .Check(request.Metadata.Validate())
-                .Tap((lid, betaalwijze) => lid.AssignBetaalwijze(betaalwijze));
+                .Tap((lid, betaalwijze) => lid.AssignBetaalwijze(betaalwijze, request.Metadata.Timestamp, request.Metadata.Gebruiker));
         }
     }
 }

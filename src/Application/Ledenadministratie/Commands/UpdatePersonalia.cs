@@ -18,11 +18,11 @@ public static class UpdatePersonalia
     {
         public async Task<Result> Handle(Command request, CancellationToken cancellationToken)
         {
-            return await 
+            return await
                 unitOfWork.Leden.SingleOrFailureAsync(alleLeden.ById(request.LidId), cancellationToken)
                 .Check(request.Metadata.Validate())
                 .Combine(_ => request.Dto.ToDomainModel(request.Metadata.Timestamp))
-                .Tap((lid, personalia) => lid.UpdatePersonalia(personalia));
+                .Tap((lid, personalia) => lid.UpdatePersonalia(personalia, request.Metadata.Timestamp, request.Metadata.Gebruiker));
         }
     }
 }

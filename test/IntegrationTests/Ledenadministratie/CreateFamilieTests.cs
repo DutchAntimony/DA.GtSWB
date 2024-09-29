@@ -4,7 +4,6 @@ using DA.GtSWB.Application.Ledenadministratie.Commands;
 using DA.GtSWB.Application.Ledenadministratie.Personen;
 using DA.GtSWB.Common.Extensions;
 using DA.GtSWB.Common.Types.IDs;
-using DA.GtSWB.Persistence.Configuration.Tests;
 using DA.Options;
 using Microsoft.EntityFrameworkCore;
 using Shouldly;
@@ -75,55 +74,5 @@ public class CreateFamilieTests(IntegrationTestFixture testContext)
         var result = await testContext.Sender.Send(request);
 
         result.IsSuccess.ShouldBeFalse();
-    }
-
-    [Fact]
-    public async Task Test()
-    {
-        using var transaction = testContext.DbContext.Database.BeginTransaction();
-
-        try
-        {
-            // Create a new pay method
-            var payMethod = new PayMethod() { Id = BetaalwijzeId.Create() };
-
-            // Create members and assign them to the pay method from the member side
-            var member1 = new Member { Id = LidId.Create(), Name = "John" };
-            var member2 = new Member { Id = LidId.Create(), Name = "Jane" };
-
-            // Save everything via the Member context
-            testContext.DbContext.Members.AddRange(member1, member2);
-            await testContext.DbContext.SaveChangesAsync();
-
-            // Member1 assigns itself to the pay method and becomes the responsible member
-            member1.AssignPayMethod(payMethod, isResponsable: true);
-
-            // Member2 assigns itself to the same pay method but is not responsible
-            member2.AssignPayMethod(payMethod);
-
-            testContext.DbContext.Set<PayMethod>().Add(payMethod);
-            await testContext.DbContext.SaveChangesAsync();
-
-            var member = testContext.DbContext.Members
-                .Include(m => m.PayMethod)
-                .ThenInclude(pm => pm.ResponsableMember)
-                .FirstOrDefault(m => m.Id == member1.Id);
-
-            if (member != null && member.PayMethod != null)
-            {
-                Console.WriteLine($"Member: {member.Name} is using PayMethod {member.PayMethod.Id}");
-
-                if (member.PayMethod.ResponsableMember != null)
-                {
-                    Console.WriteLine($"Responsable Member: {member.PayMethod.ResponsableMember.Name}");
-                }
-            }
-
-            transaction.Commit();
-        }
-        catch
-        {
-            transaction.Rollback();
-        }
     }
 }

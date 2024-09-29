@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
-namespace DA.ApplicationLibrary.Behaviours;
+namespace DA.GtSWB.Application.Behaviour;
 public sealed class LoggingPipelineBehaviour<TRequest, TResponse>(ILogger<TRequest> logger)
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : notnull
