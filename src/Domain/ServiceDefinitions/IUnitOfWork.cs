@@ -1,4 +1,5 @@
 ﻿using DA.GtSWB.Common.Data;
+using DA.GtSWB.Domain.Models.Contributie;
 using DA.GtSWB.Domain.Models.Ledenadministratie;
 using Microsoft.EntityFrameworkCore.Storage;
 
@@ -8,7 +9,7 @@ public interface IUnitOfWork : IDisposable
 {
     IRepository<Betaalwijze> Betaalwijzes { get; }
     IRepository<Lid> Leden { get; }
-    //IRepository<Adres> Adressen { get; }
+    IRepository<ContributieOpdracht> ContributieOpdrachten { get; }
     //IRepository<LidMutatieData> LidMutaties { get; }
 
     IQueryable<Lid> AllLedenAggregate { get; }

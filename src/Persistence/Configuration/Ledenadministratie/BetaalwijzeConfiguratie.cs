@@ -5,7 +5,7 @@ using DA.GtSWB.Persistence.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DA.GtSWB.Persistence.Configuration;
+namespace DA.GtSWB.Persistence.Configuration.Ledenadministratie;
 
 public class BetaalwijzeConfiguratie : IEntityTypeConfiguration<Betaalwijze>
 {
@@ -23,9 +23,9 @@ public class BetaalwijzeConfiguratie : IEntityTypeConfiguration<Betaalwijze>
             .HasValue<IncassoBetaalwijze>("Incasso");
 
         builder
-            .HasOne(p => p.VerantwoordelijkLid)      
-            .WithMany()                            
-            .HasForeignKey(p => p.VerantwoordelijkLidId)  
+            .HasOne(p => p.VerantwoordelijkLid)
+            .WithMany()
+            .HasForeignKey(p => p.VerantwoordelijkLidId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.Property("Betaalmethode")

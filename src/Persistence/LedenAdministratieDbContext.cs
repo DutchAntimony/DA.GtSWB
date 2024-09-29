@@ -1,4 +1,5 @@
 ﻿using DA.GtSWB.Common.Data;
+using DA.GtSWB.Domain.Models.Contributie;
 using DA.GtSWB.Domain.Models.Ledenadministratie;
 using DA.GtSWB.Domain.ServiceDefinitions;
 using DA.GtSWB.Persistence.Common;
@@ -11,7 +12,8 @@ public class LedenAdministratieDbContext(DbContextOptions<LedenAdministratieDbCo
 {
     public DbSet<Lid> LedenDbSet => base.Set<Lid>();
     public DbSet<Betaalwijze> BetaalwijzeSet => base.Set<Betaalwijze>();
-
+    public DbSet<ContributieOpdracht> ContributieOpdrachtSet => base.Set<ContributieOpdracht>();
+    
     public IRepository<Lid> Leden => new DbSetRepository<Lid>(
     LedenDbSet,
     LedenDbSet //.Where(not uitgeschreven)
@@ -28,6 +30,13 @@ public class LedenAdministratieDbContext(DbContextOptions<LedenAdministratieDbCo
         base.Set<Betaalwijze>(),
         base.Set<Betaalwijze>()
             .Include(bw => bw.Leden));
+
+    public IRepository<ContributieOpdracht> ContributieOpdrachten => new DbSetRepository<ContributieOpdracht>(
+        ContributieOpdrachtSet,
+        ContributieOpdrachtSet
+            .Include(co => co.BetaalOpdrachtCollectie)
+            .ThenInclude(bo => bo.OpdrachtRegelCollectie)
+            .AsSplitQuery());
 
     public IQueryable<Lid> AllLedenAggregate => LedenDbSet.AsNoTracking();
 

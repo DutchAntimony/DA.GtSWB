@@ -5,7 +5,7 @@ using DA.GtSWB.Persistence.Converters;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DA.GtSWB.Persistence.Configuration;
+namespace DA.GtSWB.Persistence.Configuration.Ledenadministratie;
 public class LidMutatieConfiguratie : IEntityTypeConfiguration<LidMutatie>
 {
     public void Configure(EntityTypeBuilder<LidMutatie> builder)
