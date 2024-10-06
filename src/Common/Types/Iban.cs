@@ -13,6 +13,9 @@ public readonly record struct Iban
     public readonly override string ToString() =>
         $"{Landcode} {ControleGetal} {BankIdentifier} {Regex.Replace(Rekeningnummer, ".{4}", "$0 ").Trim()}";
 
+    public readonly string ToFlatString() =>
+        $"{Landcode}{ControleGetal}{BankIdentifier}{Rekeningnummer}";
+
     public Iban(string value)
     {
         value = value.Replace(" ", "").ToUpperInvariant();

@@ -1,4 +1,5 @@
 ﻿using DA.GtSWB.Common.Types;
+using DA.GtSWB.Common.Types.Enums;
 using DA.GtSWB.Domain.Models.Ledenadministratie;
 
 namespace DA.GtSWB.Application.Ledenadministratie;
@@ -28,6 +29,9 @@ public record BankrekeningDto
         set => _tenNameVan = value?.Sanitize();
     }
 
+    public MandaadType MandaadType { get; set; } = MandaadType.Geen;
+    public DateOnly? MandaadDatum { get; set; }
+
     public Result Validate(IBicProvider bicProvider)
     {
         return new ValidationFailureCollection()
@@ -39,7 +43,7 @@ public record BankrekeningDto
     public Result<Bankrekening> ToDomainModel(IBicProvider bicProvider)
     {
         return Validate(bicProvider)
-            .MapFunc(() => Bankrekening.Create(_convertedIban!.Value, Bic!, TenNameVan!));
+            .MapFunc(() => Bankrekening.Create(_convertedIban!.Value, Bic!, TenNameVan!, MandaadDatum, MandaadType));
     }
 
     private Result<string> ParseIbanAndBic(IBicProvider bicProvider)

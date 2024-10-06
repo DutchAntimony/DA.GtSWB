@@ -1,0 +1,29 @@
+Refactoring:
+
+- Maak IUnitOfWork slanker
+	- Reduceer naar 4 aggregates:
+		- ConfiguratieItem
+		- Lid
+		- Betaalwijze
+		- ContributieOpdracht
+	  -> dat betekent ook dat we referenties moeten aanleggen naar deze aggregates vanuit de andere entities.
+	  -> daarnaast hebben we nog een paar pseudo aggregates: adres
+	- Zorg ervoor dat Nota's opgebouwd kunnen worden zonder het adres van het verantwoordelijk lid op te vragen.
+		- Misschien het makkelijkst om twee velden toe te voegen: - AdresId en Aanspreeknaam.
+		- AdresId kan dan een referentie naar het pseudoAggregate Adres zijn.
+		- En Aanspreeknaam kan gewoon tekst opslaan zodat deze niet elke keer opgevraagd hoeft te worden.
+			- Betekent ook dat bij een ophoging van de iteratie dit opnieuw bepaald moet worden!
+
+Features:
+	1. Aanmaken van herinneringsnotas
+	2. Ledenbeheer: 
+		2a) Inschrijven
+		2b) Hernoemen, 
+		2c) Verhuizen, 
+		2d) Uitschrijven,
+		2e) Betaalwijze aanpassen
+	3. Ledenfeatures: inclusief commands om aan te passen.
+		3a) Emailadres,
+		3b) Telefoonnummer,
+		3c) notities, 
+	4. 

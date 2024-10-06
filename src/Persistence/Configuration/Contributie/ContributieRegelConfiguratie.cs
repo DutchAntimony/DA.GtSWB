@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DA.GtSWB.Persistence.Configuration.Contributie;
 
-public class ContributieRegelConfiguratie : IEntityTypeConfiguration<LidContributieNotaRegel>
+public class ContributieRegelConfiguratie : IEntityTypeConfiguration<ContributieRegel>
 {
-    public void Configure(EntityTypeBuilder<LidContributieNotaRegel> builder)
+    public void Configure(EntityTypeBuilder<ContributieRegel> builder)
     {
         builder.HasOne(cr => cr.Lid)
             .WithMany()

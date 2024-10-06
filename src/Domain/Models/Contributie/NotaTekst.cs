@@ -5,6 +5,8 @@ namespace DA.GtSWB.Domain.Models.Contributie;
 public record NotaTekst
 {
     public NotaTekstId Id { get; init; }
+    public required string Titel { get; init; }
+    public required string DatumPlaats { get; init; }
     public required string Aanhef { get; init; }
     public required string Inleiding { get; init; }
     public required string Afsluiting { get; init; }

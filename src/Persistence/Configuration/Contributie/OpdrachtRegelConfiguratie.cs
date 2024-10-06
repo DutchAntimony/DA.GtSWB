@@ -20,7 +20,7 @@ public class OpdrachtRegelConfiguratie : IEntityTypeConfiguration<OpdrachtRegel>
 
         builder.HasDiscriminator<string>("Type")
             .HasValue<KostenRegel>("Kosten")
-            .HasValue<LidContributieNotaRegel>("Contributie")
+            .HasValue<ContributieRegel>("Contributie")
             .HasValue<InformatieRegel>("Informatie");
         builder.Property("Type").HasMaxLength(50).HasColumnOrder(1);
 

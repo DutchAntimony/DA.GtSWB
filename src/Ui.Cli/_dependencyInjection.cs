@@ -2,6 +2,7 @@
 using DA.GtSWB.Infrastructure;
 using DA.GtSWB.Persistence;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
@@ -27,6 +28,7 @@ internal static class DependencyInjection
                 services.RegisterApplication();
                 services.RegisterInfraServices();
                 services.RegisterDatabase(configuration);
+                services.AddSingleton(configuration);
             })
             .UseSerilog((host, config) => config
                 .WriteTo.File(Path.Join(baseDir, "Log", "log.txt"), fileSizeLimitBytes: 1048576, rollOnFileSizeLimit: true)

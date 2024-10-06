@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\DA.PdfGeneration\DA.PdfGeneration.csproj" />
     <ProjectReference Include="..\..\lib\DA.Results\DA.Results.csproj" />
     <ProjectReference Include="..\..\lib\DA.Sepa\DA.Sepa.csproj" />
     <ProjectReference Include="..\Common\Common.csproj" />

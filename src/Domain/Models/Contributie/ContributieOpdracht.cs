@@ -16,7 +16,7 @@ public class ContributieOpdracht
 
     public bool IsAfgerond => BetaalOpdrachten.All(bo => bo.IsAfgerond);
 
-    public static ContributieOpdracht Create(int jaargang, ICollection<BetaalOpdracht> betaalopdrachten)
+    public static ContributieOpdracht Create(int jaargang, IEnumerable<BetaalOpdracht> betaalopdrachten)
     {
         var opdracht = new ContributieOpdracht()
         {

@@ -13,6 +13,31 @@ public abstract class Betaalwijze
 
     public LidId? VerantwoordelijkLidId { get; set; }
     public Lid? VerantwoordelijkLid { get; set; }
+}
 
-    internal static Betaalwijze Gratis => new GratisBetaalwijze() { Id = BetaalwijzeId.Empty };
+public static class BetaalwijzeExtensions
+{
+    public static T Match<T>(this Betaalwijze betaalwijze,
+        Func<NotaBetaalwijze, T> matchNota,
+        Func<IncassoBetaalwijze, T> matchIncasso)
+    {
+        return betaalwijze switch
+        {
+            NotaBetaalwijze nota => matchNota(nota),
+            IncassoBetaalwijze inc => matchIncasso(inc),
+            _ => throw new NotImplementedException()
+        };
+    }
+
+    public static Task<T> MatchAsync<T>(this Betaalwijze betaalwijze,
+    Func<NotaBetaalwijze, Task<T>> matchNota,
+    Func<IncassoBetaalwijze, Task<T>> matchIncasso)
+    {
+        return betaalwijze switch
+        {
+            NotaBetaalwijze nota => matchNota(nota),
+            IncassoBetaalwijze inc => matchIncasso(inc),
+            _ => throw new NotImplementedException()
+        };
+    }
 }

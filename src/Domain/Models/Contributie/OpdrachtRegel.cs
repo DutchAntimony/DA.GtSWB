@@ -3,7 +3,7 @@ using DA.GtSWB.Common.Types.IDs;
 
 namespace DA.GtSWB.Domain.Models.Contributie;
 
-public abstract class OpdrachtRegel
+public abstract record OpdrachtRegel
 {
     public required OpdrachtRegelId Id { get; init; }
     public BetaalOpdracht BetaalOpdracht { get; init; } = null!;

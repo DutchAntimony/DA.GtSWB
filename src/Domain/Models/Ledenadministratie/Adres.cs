@@ -17,7 +17,7 @@ public class Adres
         init => _land = value.AsNullable();
     }
 
-    private Adres() { } // used by ORM and static factory methods
+    //private Adres() { } // used by ORM and static factory methods
 
     public static Adres Create(string straat, string huisnummer, string postcode, string woonplaats, Option<string> land)
     {

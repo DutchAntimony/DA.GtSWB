@@ -5,7 +5,7 @@ namespace DA.GtSWB.Domain.Models.Ledenadministratie.Betaalwijzes;
 public class NotaBetaalwijze : Betaalwijze
 {
     public bool PreferEmail { get; set; } = false;
-    public Option<Adres> VerstuurAdres => VerantwoordelijkLid?.Adres ?? Option.None;
+    public Adres? VerstuurAdres => VerantwoordelijkLid?.Adres.AsNullable();
 
     private NotaBetaalwijze() { }
 

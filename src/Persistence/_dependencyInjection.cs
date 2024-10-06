@@ -26,13 +26,17 @@ public static class DependencyInjection
 
         services.AddDbContext<LedenAdministratieDbContext>(options =>
             options.UseSqlite(connection, sqliteOptions
-            => sqliteOptions.MigrationsAssembly(PersistenceAssembly.Assembly.FullName)));
+                => sqliteOptions.MigrationsAssembly(PersistenceAssembly.Assembly.FullName))
+#if DEBUG
+            .EnableSensitiveDataLogging(true)
+#endif
+            );
 
         services.AddScoped<IUnitOfWork, LedenAdministratieDbContext>();
         services.AddScoped(typeof(ISpecification<>), typeof(QueryableSpecification<>));
 
         services.AddScoped<ILidnummerProvider, LidnummerProvider>();
-
+        services.AddScoped<IConfiguratieService, ConfiguratieService>();
         return services;
     }
 }

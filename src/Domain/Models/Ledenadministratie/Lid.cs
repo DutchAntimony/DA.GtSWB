@@ -26,6 +26,21 @@ public class Lid
 
     private Lid() { }
 
+    public static Lid ImportLid(int lidnummer, Personalia personalia, Adres adres, bool isUitgeschreven, DateTime mutatieTimeStamp, string gebruiker)
+    {
+        var lid = new Lid()
+        {
+            Id = LidId.Create(),
+            Lidnummer = lidnummer,
+            Personalia = personalia,
+            AdresDataDatabase = adres,
+            IsUitgeschreven = isUitgeschreven
+        };
+
+        lid.Mutaties.Add(NieuwLidMutatie.Create(lid, mutatieTimeStamp, gebruiker));
+        return lid;
+    }
+
     public static async Task<Lid> Create(ILidnummerProvider lidnummerProvider,
         Personalia personalia, Adres adres, CancellationToken cancellationToken = default)
     {

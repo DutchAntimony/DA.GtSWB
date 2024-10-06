@@ -1,6 +1,10 @@
 ﻿using DA.GtSWB.Application.Behaviour;
+using DA.GtSWB.Application.Contributie.Services;
 using DA.GtSWB.Application.Ledenadministratie;
 using DA.GtSWB.Application.Ledenadministratie.Services;
+using DA.GtSWB.Common.Formatters;
+using DA.GtSWB.Domain.Models.Settings;
+using DA.GtSWB.Domain.ServiceDefinitions;
 using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 
@@ -17,9 +21,14 @@ public static class DependencyInjection
             //config.AddOpenBehavior(typeof(ValidationPipelineBehaviour<,>));
         });
 
-        services.AddTransient<IBicProvider, BicProvider>();
-        services.AddTransient<ILidCreationService, LidCreationService>();
-        services.AddTransient<IBetaalwijzeCreationService, BetaalwijzeCreationService>();
+        services.AddSingleton<IBicProvider, BicProvider>();
+        services.AddSingleton<ILidCreationService, LidCreationService>();
+        services.AddSingleton<IBetaalwijzeCreationService, BetaalwijzeCreationService>();
+        services.AddSingleton<ICreateContributieOpdrachtService, CreateContributieOpdrachtService>();
+        services.AddSingleton<INotaTekstProvider, NotaTekstProvider>();
+        services.AddSingleton<Configuraties>();
+        services.AddSingleton(DefaultFormatters.VolledigeNaam);
+        services.AddSingleton(DefaultFormatters.OpTweeRegels);
         return services;
     }
 }
